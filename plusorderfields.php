@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: PlusOrderFields
+ * Plugin Name: Plus Order Fields
  * Description: Simples integração WooCommerce/Pagseguro para adição de campos adicionais ao pedido.
  * Version: 1.0.0
  * Author: Petrus Nogueira
@@ -13,6 +13,9 @@
 require 'woocommerce_keys.php';
 
 $_pagseguro = get_option('woocommerce_pagseguro_settings', false);
+$_consumer_key = null !== get_option('plus_consumer_key') ? get_option('plus_consumer_key') : '';
+$_consumer_secret = null !== get_option('plus_consumer_secret') ? get_option('plus_consumer_secret') : '';
+
 if ( is_array( $_pagseguro ) ) {
   if ( sizeof( $_pagseguro ) ) {
     //Sandbox ou Real?
