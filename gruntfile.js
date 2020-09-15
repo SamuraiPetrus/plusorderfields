@@ -9,24 +9,13 @@ module.exports = function(grunt) {
       },
       my_target: {
         files: {
-          'assets/js/exibit.min.js' : ['src/js/*.js']
-        }
-      }
-    },
-    cssmin: {
-      options: {
-        mergeIntoShorthands: false,
-        roundingPrecision: -1
-      },
-      target: {
-        files: {
-          'assets/css/exibit.min.css': ['src/css/*.css']
+          'assets/js/plusorderfields.min.js' : ['src/js/*.js']
         }
       }
     },
     watch: {
       scripts: {
-        files: ['src/js/*js', 'src/css/*css'],
+        files: ['src/js/*js'],
         tasks: ['default'],
         options: {
           spawn: false,
@@ -40,6 +29,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
-  grunt.registerTask('default', ['uglify', 'cssmin']);
+  grunt.registerTask('default', ['uglify']);
 
 };

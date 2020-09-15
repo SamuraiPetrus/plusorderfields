@@ -83,7 +83,7 @@ function pagseguro_email_field_html () {
 
 function pagseguro_token_field_html () {
   $_consumer_secret = null !== get_option('plusorderfields_pagseguro_token') ? get_option('plusorderfields_pagseguro_token') : '';
-  echo '<input id="true_token" type="password" autocomplete="off" name="plusorderfields_pagseguro_token" style="width: 400px;" value="' . $_consumer_secret . '" />';
+  echo '<input id="true_token" type="text" autocomplete="off" name="plusorderfields_pagseguro_token" style="width: 400px;" value="' . $_consumer_secret . '" />';
 }
 
 //Sandbox
@@ -93,13 +93,13 @@ function sandbox_email_field_html () {
 }
 function sandbox_token_field_html () {
   $_consumer_secret = null !== get_option('plusorderfields_sandbox_token') ? get_option('plusorderfields_sandbox_token') : '';
-  echo '<input id="sandbox_token" type="password" autocomplete="off" name="plusorderfields_sandbox_token" style="width: 400px;" value="' . $_consumer_secret . '" />';
+  echo '<input id="sandbox_token" type="text" autocomplete="off" name="plusorderfields_sandbox_token" style="width: 400px;" value="' . $_consumer_secret . '" />';
 }
 
 //Checkbox - Habilitar Sandbox
 function is_sandbox_field_html () {
   $_sandbox_check = get_option('plusorderfields_is_sandbox');
-  echo '<input id="sandbox_token" type="checkbox" name="plusorderfields_is_sandbox" '. checked(1, $_sandbox_check, false ) .' />';
+  echo '<input id="is_sandbox" type="checkbox" name="plusorderfields_is_sandbox" '. checked(1, $_sandbox_check, false ) .' />';
 }
 
 //Reescrevendo interface própria para configurações do PlusOrderFields
