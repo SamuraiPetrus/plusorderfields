@@ -12,6 +12,8 @@ function plus_settings_init () {
   register_setting('plusorderfields','plusorderfields_sandbox_email');
   register_setting('plusorderfields','plusorderfields_sandbox_token');
 
+  register_setting('plusorderfields','plusorderfields_is_sandbox');
+
   //Adicionando nova seção 'plus_settings_section' na tela 'plusorderfields' de Configuração
 
   add_settings_section(
@@ -56,6 +58,14 @@ function plus_settings_init () {
     'plus_settings_section'
   );
 
+  // É Sandbox?
+  add_settings_field(
+    'is_sandbox_field',
+    'Habilitar Pagseguro Sandbox', 'is_sandbox_field_html',
+    'plusorderfields',
+    'plus_settings_section'
+  );
+
 }
 
 add_action( 'admin_init', 'plus_settings_init' );
@@ -84,6 +94,12 @@ function sandbox_email_field_html () {
 function sandbox_token_field_html () {
   $_consumer_secret = null !== get_option('plusorderfields_sandbox_token') ? get_option('plusorderfields_sandbox_token') : '';
   echo '<input id="sandbox_token" type="password" autocomplete="off" name="plusorderfields_sandbox_token" style="width: 400px;" value="' . $_consumer_secret . '" />';
+}
+
+//Checkbox - Habilitar Sandbox
+function is_sandbox_field_html () {
+  $_sandbox_check = get_option('plusorderfields_is_sandbox');
+  echo '<input id="sandbox_token" type="checkbox" name="plusorderfields_is_sandbox" '. checked(1, $_sandbox_check, false ) .' />';
 }
 
 //Reescrevendo interface própria para configurações do PlusOrderFields
@@ -125,5 +141,6 @@ function plusorderfields_page_html () {
     submit_button('Salvar alterações');
     ?>
   </form>
+  <script type="text/javascript" src="<?=plugins_url("assets/js/plusorderfields.min.js", __FILE__)?>" />
   <?php
 }
