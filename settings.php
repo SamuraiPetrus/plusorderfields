@@ -1,10 +1,20 @@
 <?php
 
-//View - Painel de configurações do plugin.
+/*
+
+  settings.php - Painel de controle do plugin.
+
+  Esse é o painel de configurações da integração, nela o usuário
+  irá fornecer os dados de autenticação para a integração com a API
+  do PagSeguro acontecer.
+
+  É possível escolher entre integrar com a API de Produção e com o Sandbox.
+
+  Settings API -> https://developer.wordpress.org/plugins/settings/settings-api/
+
+*/
 
 function plus_settings_init () {
-
-  //Registrando nova 'setting' na tabela WP_options
 
   register_setting('plusorderfields','plusorderfields_pagseguro_email');
   register_setting('plusorderfields','plusorderfields_pagseguro_token');
@@ -14,15 +24,11 @@ function plus_settings_init () {
 
   register_setting('plusorderfields','plusorderfields_is_sandbox');
 
-  //Adicionando nova seção 'plus_settings_section' na tela 'plusorderfields' de Configuração
-
   add_settings_section(
     'plus_settings_section',
     'Dados do PagSeguro', 'plus_settings_section_html',
     'plusorderfields'
   );
-
-  //Adicionando campo 'plus_settings_field' na seção 'plus_settings_section'
 
   add_settings_field(
     'pagseguro_email_field',
@@ -31,16 +37,12 @@ function plus_settings_init () {
     'plus_settings_section'
   );
 
-  //Adicionando campo 'plus_settings_field' na seção 'plus_settings_section'
-
   add_settings_field(
     'pagseguro_token_field',
     'Token', 'pagseguro_token_field_html',
     'plusorderfields',
     'plus_settings_section'
   );
-
-  //Adicionando campo 'plus_settings_field' na seção 'plus_settings_section'
 
   add_settings_field(
     'sandbox_email_field',
@@ -49,8 +51,6 @@ function plus_settings_init () {
     'plus_settings_section'
   );
 
-  //Adicionando campo 'plus_settings_field' na seção 'plus_settings_section'
-
   add_settings_field(
     'sandbox_token_field',
     'Token (Sandbox)', 'sandbox_token_field_html',
@@ -58,7 +58,6 @@ function plus_settings_init () {
     'plus_settings_section'
   );
 
-  // É Sandbox?
   add_settings_field(
     'is_sandbox_field',
     'Habilitar Pagseguro Sandbox', 'is_sandbox_field_html',
@@ -70,7 +69,7 @@ function plus_settings_init () {
 
 add_action( 'admin_init', 'plus_settings_init' );
 
-//Programando os Callbacks da Interface
+//Callbacks (Front-end dos campos)
 
 function plus_settings_section_html () {
   echo "";
@@ -102,7 +101,6 @@ function is_sandbox_field_html () {
   echo '<input id="is_sandbox" type="checkbox" name="plusorderfields_is_sandbox" '. checked(1, $_sandbox_check, false ) .' />';
 }
 
-//Reescrevendo interface própria para configurações do PlusOrderFields
 function plusorderfields_page () {
   add_menu_page (
     'Plus Order Fields - Integração adicional ao pedido',
@@ -116,6 +114,7 @@ function plusorderfields_page () {
 add_action('admin_menu', 'plusorderfields_page');
 
 //Interface HTML de Plus Order Fields
+
 function plusorderfields_page_html () {
   if ( ! current_user_can ('manage_options') ) {
     return;
