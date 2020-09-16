@@ -19,8 +19,8 @@
 
   [email] -> Obtido pelo registro do usuário ($_email) - @see settings.php
   [token] -> Obtido pelo registro do usuário ($_token) - @see settings.php
-  [initialDate] -> Obtida pelo loop dos pedidos ($initial_date)(LINE:33)
-  [finalDate] -> Obtida pelo loop dos pedidos + tratamento PHP ($search_interval)(LINE:35)
+  [initialDate] -> Obtida pelo loop dos pedidos ($initialDate)
+  [finalDate] -> Obtida pelo loop dos pedidos + tratamento PHP ($finalDate)
 
   DETALHES SOBRE O FORMATO DA DATA
   Para se adequar ao padrão do PagSeguro, precisei fazer o seguinte tratamento via PHP:
@@ -30,21 +30,24 @@
 
 */
 
-$test = [];
+include_once "transaction.php";
+include_once "notices.php";
 
 foreach ( $_orders as $order ) {
 
-  //Coletando data de criação do pedido
-  $initial_date_object = date_create( $order->post_date );
-  $date = $initial_date_object->format('Y-m-d') . "T" . $initial_date_object->format('H:i');
+  display_notice("001");
 
-  //Intervalo de 1 minuto, utilizada na filtragem de data da API do PagSeguro
-  date_add($initial_date_object, date_interval_create_from_date_string("1 minute"));
-  $interval = $initial_date_object->format('Y-m-d') . "T" . $initial_date_object->format('H:i');
+  $transaction_query = get_pagseguro_transaction( $_url, $_email, $_token, $order );
 
-  //Requisição da API
-  curl_init($_url);
+  $order_meta_data = [
+    "nsu" => $transaction_query->transactions->transaction->reference,
+    "auth_date" => $transaction_query->transactions->transaction->date,
+    "transaction_id" => $transaction_query->transactions->transaction->code,
+    "gross_amount" => $transaction_query->transactions->transaction->grossAmount,
+  ];
+
+  print_r($order_meta_data);
 
 }
 
-wp_die(print_r($test));
+wp_die();

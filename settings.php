@@ -98,7 +98,7 @@ function sandbox_token_field_html () {
 //Checkbox - Habilitar Sandbox
 function is_sandbox_field_html () {
   $_sandbox_check = get_option('plusorderfields_is_sandbox');
-  echo '<input id="is_sandbox" type="checkbox" name="plusorderfields_is_sandbox" '. checked(1, $_sandbox_check, false ) .' />';
+  echo '<input id="is_sandbox" type="checkbox" name="plusorderfields_is_sandbox" '. checked(1, (Bool) $_sandbox_check, false ) .' />';
 }
 
 function plusorderfields_page () {
