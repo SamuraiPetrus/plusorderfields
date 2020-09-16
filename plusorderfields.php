@@ -31,20 +31,16 @@
 //Variáveis Globais
 $_is_sandbox  = null !== get_option('plusorderfields_is_sandbox') ? get_option('plusorderfields_is_sandbox') : 0;
 $_orders      = get_posts('post_type=shop_order&post_status=any');
-
 if ( $_is_sandbox ) {
-
   $_email = null !== get_option('plusorderfields_sandbox_email') ? get_option('plusorderfields_sandbox_email') : 0;
   $_token = null !== get_option('plusorderfields_sandbox_token') ? get_option('plusorderfields_sandbox_token') : 0;
   $_url   = "https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/";
-
 } else {
-
   $_email = null !== get_option('plusorderfields_pagseguro_email') ? get_option('plusorderfields_pagseguro_email') : 0;
   $_token = null !== get_option('plusorderfields_pagseguro_token') ? get_option('plusorderfields_pagseguro_token') : 0;
   $_url   = "https://ws.pagseguro.uol.com.br/v2/transactions";
-
 }
+
 
 require 'notices.php'; // Alertas (Caso não hajam os requisitos)
 require 'integration.php'; // Integração com o PagSeguro
