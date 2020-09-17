@@ -29,17 +29,17 @@ Algoritmo que obtém os dados da API do PagSeguro relacionados a um pedido recé
 ### metadata.php
 Algoritmo responsável por cadastrar o resultado da integração de **transactions.php** aos metadados do pedido, através do hook:
 
-### notices.php
-Responsável por emitir alertas ao administrador do site, por conta de incompatibilidades, notificações, ou demais informações relevantes acerca do plugin.
-
 ```php
 add_action( "woocommerce_thankyou", ". . ." );
 ```
 
+### notices.php
+Responsável por emitir alertas ao administrador do site, por conta de incompatibilidades, notificações, ou demais informações relevantes acerca do plugin.
+
 
 ## Para mais informações
 
-Uma descrição mais aprofundada da lógica utilizada pelo plugin pode ser encontrada nos comentários de cada um dos arquivos citados na seção: [Explicando o fluxo de desenvolvimento](https://github.com/SamuraiPetrus/plusorderfields/#fluxo-de-desenvolvimento)
+Uma descrição mais aprofundada da lógica utilizada pelo plugin pode ser encontrada nos comentários de cada um dos arquivos citados na seção: [Fluxo de desenvolvimento](https://github.com/SamuraiPetrus/plusorderfields/#fluxo-de-desenvolvimento)
 
 Abaixo, uma espécie de "bibliografia" das referências utilizadas por mim para o desenvolvimento do plugin "Plus Order Fields".
 * [Endpoint consumido na API do PagSeguro](https://dev.pagseguro.uol.com.br/reference/checkout-transparente#api-checkout-transparente-consulta-transacoes-por-data-ou-codigo-de-referencia)
