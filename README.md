@@ -20,15 +20,18 @@ Simples assim!
 ### plusorderfields.php
 Arquivo inicial do plugin. Lá são definidas as variáveis globais, e o ordenamento da arquitetura de todas as funcionalidades.
 
-### notices.php
-Responsável por emitir alertas ao administrador do site, por conta de incompatibilidades, notificações, ou demais informações relevantes acerca do plugin.
+### settings.php
+Responsável por construir o painel de configurações da integração, nele o usuário irá fornecer os dados de autenticação para a integração com a API do PagSeguro acontecer. Para mais informações a respeito da sua funcionalidade, consulte a [Settings API do WordPress.](https://developer.wordpress.org/plugins/settings/settings-api/)
 
 ### transaction.php
 Algoritmo que obtém os dados da API do PagSeguro relacionados a um pedido recém finalizado.
 
-
 ### metadata.php
 Algoritmo responsável por cadastrar o resultado da integração de **transactions.php** aos metadados do pedido, através do hook:
+
+### notices.php
+Responsável por emitir alertas ao administrador do site, por conta de incompatibilidades, notificações, ou demais informações relevantes acerca do plugin.
+
 ```php
 add_action( "woocommerce_thankyou", ". . ." );
 ```
