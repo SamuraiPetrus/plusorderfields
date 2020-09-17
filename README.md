@@ -9,5 +9,5 @@ de uma requisição a conta do usuário no PagSeguro.
 
 * [WooCommerce](https://br.wordpress.org/plugins/woocommerce/)
 * [PagSeguro for WooCommerce](https://br.wordpress.org/plugins/woocommerce-pagseguro/)
-
+* <a href="http://example.com/" target="_blank">Teste de link externo</a>
 É importante que o site já esteja integrado ao PagSeguro antes de acionar a funcionalidade desse plugin, visto que o mesmo não fornece suporte a essa função. (Por enquanto!! hehe)
