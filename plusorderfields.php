@@ -12,8 +12,8 @@
 
   Plus Order Fields é o primeiro plugin desenvolvido por mim,
   Petrus Nogueira, para a plataforma WordPress. Sua função é
-  simplesmente adicionar campos adicionais ao pedido de acordo
-  com seu transactionID no PagSeguro.
+  simplesmente adicionar campos adicionais ao pedido através
+  de uma requisição a sua respectiva referência no PagSeguro.
 
   Cada arquivo contém um breve resumo de sua funcionalidade,
   além de links com as referências que fundamentam a
