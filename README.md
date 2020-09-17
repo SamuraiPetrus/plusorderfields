@@ -30,7 +30,7 @@ Algoritmo que obtém os dados da API do PagSeguro relacionados a um pedido recé
 Algoritmo responsável por cadastrar o resultado da integração de **transactions.php** aos metadados do pedido, através do hook:
 
 ```php
-add_action( "woocommerce_thankyou", ". . ." );
+add_action( "woocommerce_thankyou", "..." );
 ```
 
 ### notices.php
