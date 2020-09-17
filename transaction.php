@@ -1,27 +1,27 @@
 <?php
 /*
 
-  transaction.php - Algoritmo de integração com o PagSeguro
+  transaction.php
 
-  Esse algoritmo lista os pedidos do e-commerce independente de seu status,
-  e a partir de sua respectiva data de criação, é feita uma requisição
-  para algum dos endpoints abaixo:
+  Objetivo: Obter os dados da API do PagSeguro relacionados a um pedido recém finalizado.
 
-  (No caso de Sandbox) -> https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/
-  (No caso de Produção) -> https://ws.pagseguro.uol.com.br/v2/transactions
+  De acordo com a API do PagSeguro, uma requisição ao endpoint "transactions" deve utilizar
+  o método "GET", e receber obrigatoriamente os argumentos: "email", "token" e "initialDate".
 
-  Argumentos:
+  Para mais informações: https://dev.pagseguro.uol.com.br/reference/checkout-transparente#api-checkout-transparente-consulta-transacoes-por-data-ou-codigo-de-referencia
 
-  [_url]   -> Obtido no arquivo raíz (plusorderfields.php) ($_url) - @see settings.php
-  [_email] -> Obtido pelo registro do usuário ($_email) - @see settings.php
-  [_token] -> Obtido pelo registro do usuário ($_token) - @see settings.php
-  [order]  -> Obtido pelo loop dos pedidos ($initialDate)
+  A fim de alcançar o objetivo mencionado, foi definido um lambda "$transaction_query()"
+  com os seguintes parâmetros:
 
-  DETALHES SOBRE O FORMATO DA DATA
-  Para se adequar ao padrão do PagSeguro, precisei fazer o seguinte tratamento via PHP:
+  $_url (string) -> Url base gerada pelo arquivo "plusorderfields.php"
+  $_email (string) -> E-mail gerado pelo usuário no painel de controle do plugin.
+  $_token (string) -> Token gerado pelo usuário no painel de controle do plugin.
+  $order (object) -> Instância da classe "WC_Order" gerado pelo arquivo "metadata.php"
 
-  2020-09-10 11:22:49 (Antes)
-  2020-09-10T11:22:49 (Depois)
+  "$transaction_query()" faz uma requisição ao endpoint "transactions" da API do PagSeguro
+  através da biblioteca cURL do PHP, os parâmetros do lambda são passados como as variáveis
+  de uma requisição GET, e a resposta da mesma, naturalmente um objeto XML, é convertida em
+  um array legível ao PHP e atribuída a variável $array_transaction, valor retornado pela função.
 
 */
 
@@ -30,10 +30,6 @@ $transaction_query = function ( $_url, $_email, $_token, $order ) {
   //Coletando data de criação do pedido
   $initial_date_object = date_create( $order->post_date );
   $initialDate = $initial_date_object->format( 'Y-m-d' ) . "T" . $initial_date_object->format( 'H:i' );
-
-  //Intervalo de 1 minuto, utilizada na filtragem de data da API do PagSeguro
-  // date_add( $initial_date_object, date_interval_create_from_date_string( "5 minutes" ) );
-  // $finalDate = $initial_date_object->format( 'Y-m-d' ) . "T" . $initial_date_object->format( 'H:i' );
 
   //Requisição da API
   $transaction = curl_init();
